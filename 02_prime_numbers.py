@@ -6,13 +6,14 @@
 
 def get_prime_numbers(n):
     prime_numbers = []
-    for number in range(2, n+1):
+    for number in range(2, n + 1):
         for prime in prime_numbers:
             if number % prime == 0:
                 break
         else:
             prime_numbers.append(number)
     return prime_numbers
+
 
 # Часть 1
 # На основе алгоритма get_prime_numbers создать класс итерируемых обьектов,
@@ -21,25 +22,60 @@ def get_prime_numbers(n):
 # Распечатать все простые числа до 10000 в столбик
 
 
-class PrimeNumbers:
-    pass
-    # TODO здесь ваш код
+# class PrimeNumbers:
+#     def __init__(self, n):
+#         self.values = n
+#
+#     def __iter__(self):
+#         self.prime_numbers = []
+#         self.value = 1
+#         return self
+#
+#     def __next__(self):
+#         if self.value < self.values:
+#             self.value += 1
+#             if self.prime_numbers == []:
+#                 self.prime_numbers.append(self.value)
+#                 return self.value
+#             else:
+#                 for num in self.prime_numbers:
+#                     if self.value % num == 0:
+#                         break
+#                     elif num == self.prime_numbers[-1]:
+#                         self.prime_numbers.append(self.value)
+#                         return self.value
+#                 # return ('Не является простым:' + str(self.value))
+#
+#         else:
+#             raise StopIteration()
+#
+#
+# prime_number_iterator = PrimeNumbers(n=10000)
+# for number in prime_number_iterator:
+#     if number is not None:
+#         print(number)
 
 
-prime_number_iterator = PrimeNumbers(n=10000)
-for number in prime_number_iterator:
-    print(number)
-
-
-# TODO после подтверждения части 1 преподователем, можно делать
 # Часть 2
 # Теперь нужно создать генератор, который выдает последовательность простых чисел до n
 # Распечатать все простые числа до 10000 в столбик
 
 
 def prime_numbers_generator(n):
-    pass
-    # TODO здесь ваш код
+    value = 1
+    prime_numbers = []
+    while value < n:
+        value += 1
+        if not prime_numbers:
+            prime_numbers.append(value)
+            yield value
+        for num in prime_numbers:
+            if value % num == 0:
+                if value is not num:
+                    break
+            elif num == prime_numbers[-1]:
+                prime_numbers.append(value)
+                yield value
 
 
 for number in prime_numbers_generator(n=10000):
